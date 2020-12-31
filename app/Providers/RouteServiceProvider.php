@@ -42,11 +42,26 @@ class RouteServiceProvider extends ServiceProvider
                 ->middleware('api')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/api.php'));
-
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
+            $this->backOfficeRoutes();
+            $this->frontOfficeRoutes();
         });
+    }
+
+    protected function backOfficeRoutes()
+    {
+        Route::domain(config('domain.backoffice'))
+            ->namespace($this->namespace . '\Backoffice')
+            ->group(base_path('routes/backoffice.php'));
+    }
+
+    protected function frontOfficeRoutes()
+    {
+        Route::domain(config('domain.frontoffice'))
+            ->namespace($this->namespace . '\Frontoffice')
+            ->group(base_path('routes/frontoffice.php'));
     }
 
     /**
