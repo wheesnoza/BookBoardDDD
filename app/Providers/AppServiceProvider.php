@@ -13,7 +13,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(
+            \App\Src\Employee\Domain\EmployeeRepository::class,
+            \App\Src\Employee\Infrastructure\EloquentEmployeeRepository::class
+        );
     }
 
     /**

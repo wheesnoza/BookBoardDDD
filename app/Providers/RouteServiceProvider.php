@@ -17,7 +17,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/dashboard';
+    public const HOME = '/';
 
     /**
      * The controller namespace for the application.
@@ -26,7 +26,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string|null
      */
-    // protected $namespace = 'App\\Http\\Controllers';
+     protected $namespace = 'App\Http\Controllers';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -45,23 +45,16 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
-            $this->backOfficeRoutes();
-            $this->frontOfficeRoutes();
+            $this->employeeRoutes();
         });
     }
 
-    protected function backOfficeRoutes()
+    protected function employeeRoutes()
     {
         Route::domain(config('domain.backoffice'))
-            ->namespace($this->namespace . '\Backoffice')
-            ->group(base_path('routes/backoffice.php'));
-    }
-
-    protected function frontOfficeRoutes()
-    {
-        Route::domain(config('domain.frontoffice'))
-            ->namespace($this->namespace . '\Frontoffice')
-            ->group(base_path('routes/frontoffice.php'));
+            ->namespace($this->namespace)
+            ->as('employee.')
+            ->group(base_path('routes/employee.php'));
     }
 
     /**
